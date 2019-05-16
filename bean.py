@@ -2,18 +2,18 @@ import cv2
 from PIL import Image
 import numpy as np
 
-maskPath = "images/baby.png"
+maskPath = "bean.png"
 cascPath = "haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cascPath)
 mask = Image.open(maskPath)
 
 def thug_mask(image):
 	gray = cv2.cvtColor(image, cv2.COLOR_BGRA2GRAY)
-	faces = faceCascade.detectMultiScale(gray, 2)	
+	faces = faceCascade.detectMultiScale(gray, 1.5)	
 	background = Image.fromarray(image)
 	for (x,y,w,h) in faces:
-		resized_mask = mask.resize( (w + 250 , h + 150) , Image.ANTIALIAS )
-		offset = (x - 106, y + 60  )
+		resized_mask = mask.resize( (w + 450 , h + 300) , Image.ANTIALIAS )
+		offset = (x - 230, y + 65 )
 		background.paste(resized_mask, offset, mask = resized_mask)
 	return np.asarray(background)
 
